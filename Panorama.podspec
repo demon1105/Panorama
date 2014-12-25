@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "git@github.com:iSame7/Panorama.git"}
+#  s.source       = { :git => "git@github.com:iSame7/Panorama.git"}
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
