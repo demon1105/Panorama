@@ -8,7 +8,7 @@
 
 #import "PanoramaView.h"
 #import "UIScrollView+PanoramaIndicator.h"
-
+#import <UIView+Utils.h>
 @import CoreMotion;
 
 static const CGFloat CRMotionViewRotationMinimumTreshold = 0.1f;
@@ -61,7 +61,6 @@ static const CGFloat CRMotionViewRotationFactor = 4.0f;
     [self addSubview:_scrollView];
     
     _imageView = [[UIImageView alloc] initWithFrame:_viewFrame];
-    [_imageView setBackgroundColor:[UIColor blackColor]];
     [_scrollView addSubview:_imageView];
     
     _minimumXOffset = 0;
@@ -79,7 +78,6 @@ static const CGFloat CRMotionViewRotationFactor = 4.0f;
     
     CGFloat width = _viewFrame.size.height / _image.size.height * _image.size.width;
     [_imageView setFrame:CGRectMake(0, 0, width, _viewFrame.size.height)];
-    [_imageView setBackgroundColor:[UIColor blackColor]];
     [_imageView setImage:_image];
     
     _scrollView.contentSize = CGSizeMake(_imageView.frame.size.width, _scrollView.frame.size.height);
@@ -89,6 +87,40 @@ static const CGFloat CRMotionViewRotationFactor = 4.0f;
     
     _motionRate = _image.size.width / _viewFrame.size.width * CRMotionViewRotationFactor;
     _maximumXOffset = _scrollView.contentSize.width - _scrollView.frame.size.width;
+}
+
+-(void)setImageWithAnimation:(UIImage *)image
+               completeblock:(animationComplete)complete
+{
+    if (image) {
+        self.motionEnabled = NO;
+        _image = image;
+        CGFloat width = _viewFrame.size.height / _image.size.height * _image.size.width;
+        [_imageView setFrame:CGRectMake(0, 0, width, _viewFrame.size.height)];
+        [_imageView setImage:_image];
+        
+        _scrollView.contentSize = CGSizeMake(_imageView.frame.size.width, _scrollView.frame.size.height);
+        _scrollView.contentOffset = CGPointMake((_scrollView.contentSize.width - _scrollView.frame.size.width) / 2, 0);
+        
+        [_scrollView enablePanoramaIndicator];
+        
+        _motionRate = _image.size.width / _viewFrame.size.width * CRMotionViewRotationFactor;
+        _maximumXOffset = _scrollView.contentSize.width - _scrollView.frame.size.width;
+        [UIView transitionWithView:_imageView
+                          duration:1.0f
+                           options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowUserInteraction
+                        animations:^{
+                            _imageView.image = image;
+                        }
+                        completion:^(BOOL finished) {
+                            if (complete) {
+                                complete();
+                            }
+                            self.motionEnabled = YES;
+                        }];
+    }else{
+        _imageView.image = image;
+    }
 }
 
 - (void)setMotionEnabled:(BOOL)motionEnabled

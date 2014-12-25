@@ -16,4 +16,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image;
 
+typedef void (^animationComplete)(void);
+-(void)setImageWithAnimation:(UIImage *)image
+               completeblock:(animationComplete)complete;
 @end

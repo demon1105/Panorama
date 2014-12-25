@@ -44,6 +44,7 @@ static const CGFloat CRScrollIndicatorLeftRightThreshold = 16.0f;
 
 - (void)enablePanoramaIndicator
 {
+    return;
     if (![self getBackgroundViewForPanoramaIndicator] && ![self getViewForPanoramaIndicator])
     {
         self.showsHorizontalScrollIndicator = NO;
