@@ -100,7 +100,6 @@ static const CGFloat CRMotionViewRotationFactor = 4.0f;
         [_imageView setImage:_image];
         
         _scrollView.contentSize = CGSizeMake(_imageView.frame.size.width, _scrollView.frame.size.height);
-        _scrollView.contentOffset = CGPointMake((_scrollView.contentSize.width - _scrollView.frame.size.width) / 2, 0);
         
         [_scrollView enablePanoramaIndicator];
         
