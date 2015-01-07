@@ -13,7 +13,7 @@
 
 static const CGFloat CRMotionViewRotationMinimumTreshold = 0.1f;
 static const CGFloat CRMotionGyroUpdateInterval = 1 / 100;
-static const CGFloat CRMotionViewRotationFactor = 4.0f;
+static const CGFloat CRMotionViewRotationFactor = 1.0f;
 
 @interface PanoramaView ()
 
