@@ -109,6 +109,7 @@ static const CGFloat CRMotionViewRotationFactor = 1.0f;
                           duration:1.0f
                            options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionAllowUserInteraction
                         animations:^{
+                            _scrollView.contentOffset = CGPointMake((width-_scrollView.frame.size.width)/2, 0);
                             _imageView.image = image;
                         }
                         completion:^(BOOL finished) {
